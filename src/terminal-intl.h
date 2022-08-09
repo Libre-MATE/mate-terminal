@@ -23,6 +23,6 @@
 
 #include <glib/gi18n.h>
 
-#define I_(string) g_intern_static_string (string)
+#define I_(string) g_intern_static_string(string)
 
 #endif /* TERMINAL_INTL_H */

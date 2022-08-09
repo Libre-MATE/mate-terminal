@@ -21,14 +21,15 @@
 #ifndef TERMINAL_PROFILE_EDITOR_H
 #define TERMINAL_PROFILE_EDITOR_H
 
-#include "terminal-profile.h"
 #include <gtk/gtk.h>
+
+#include "terminal-profile.h"
 
 G_BEGIN_DECLS
 
-void terminal_profile_edit (TerminalProfile *profile,
-                            GtkWindow       *transient_parent,
-                            const char      *widget_name);
+void terminal_profile_edit(TerminalProfile *profile,
+                           GtkWindow *transient_parent,
+                           const char *widget_name);
 
 G_END_DECLS
 

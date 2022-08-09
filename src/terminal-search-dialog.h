@@ -27,24 +27,22 @@
 
 G_BEGIN_DECLS
 
-typedef enum _TerminalSearchFlags
-{
-    TERMINAL_SEARCH_FLAG_BACKWARDS	= 1 << 0,
-    TERMINAL_SEARCH_FLAG_WRAP_AROUND	= 1 << 1
+typedef enum _TerminalSearchFlags {
+  TERMINAL_SEARCH_FLAG_BACKWARDS = 1 << 0,
+  TERMINAL_SEARCH_FLAG_WRAP_AROUND = 1 << 1
 } TerminalSearchFlags;
 
-GtkWidget	*terminal_search_dialog_new		(GtkWindow   *parent);
+GtkWidget *terminal_search_dialog_new(GtkWindow *parent);
 
-void		 terminal_search_dialog_present		(GtkWidget   *dialog);
+void terminal_search_dialog_present(GtkWidget *dialog);
 
-void		 terminal_search_dialog_set_search_text (GtkWidget   *dialog,
-        const gchar *text);
+void terminal_search_dialog_set_search_text(GtkWidget *dialog,
+                                            const gchar *text);
 
-const gchar 	*terminal_search_dialog_get_search_text	(GtkWidget   *dialog);
+const gchar *terminal_search_dialog_get_search_text(GtkWidget *dialog);
 
-TerminalSearchFlags
-terminal_search_dialog_get_search_flags(GtkWidget   *dialog);
-VteRegex	*terminal_search_dialog_get_regex	(GtkWidget   *dialog);
+TerminalSearchFlags terminal_search_dialog_get_search_flags(GtkWidget *dialog);
+VteRegex *terminal_search_dialog_get_regex(GtkWidget *dialog);
 
 G_END_DECLS
 

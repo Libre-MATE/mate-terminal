@@ -27,85 +27,80 @@
 
 G_BEGIN_DECLS
 
-#define TERMINAL_TYPE_WINDOW              (terminal_window_get_type ())
-#define TERMINAL_WINDOW(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), TERMINAL_TYPE_WINDOW, TerminalWindow))
-#define TERMINAL_WINDOW_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), TERMINAL_TYPE_WINDOW, TerminalWindowClass))
-#define TERMINAL_IS_WINDOW(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), TERMINAL_TYPE_WINDOW))
-#define TERMINAL_IS_WINDOW_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), TERMINAL_TYPE_WINDOW))
-#define TERMINAL_WINDOW_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), TERMINAL_TYPE_WINDOW, TerminalWindowClass))
+#define TERMINAL_TYPE_WINDOW (terminal_window_get_type())
+#define TERMINAL_WINDOW(object) \
+  (G_TYPE_CHECK_INSTANCE_CAST((object), TERMINAL_TYPE_WINDOW, TerminalWindow))
+#define TERMINAL_WINDOW_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_CAST((klass), TERMINAL_TYPE_WINDOW, TerminalWindowClass))
+#define TERMINAL_IS_WINDOW(object) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((object), TERMINAL_TYPE_WINDOW))
+#define TERMINAL_IS_WINDOW_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), TERMINAL_TYPE_WINDOW))
+#define TERMINAL_WINDOW_GET_CLASS(obj) \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), TERMINAL_TYPE_WINDOW, TerminalWindowClass))
 
-typedef struct _TerminalWindowClass   TerminalWindowClass;
+typedef struct _TerminalWindowClass TerminalWindowClass;
 typedef struct _TerminalWindowPrivate TerminalWindowPrivate;
 
-struct _TerminalWindow
-{
-	GtkWindow parent_instance;
+struct _TerminalWindow {
+  GtkWindow parent_instance;
 
-	TerminalWindowPrivate *priv;
+  TerminalWindowPrivate *priv;
 };
 
-struct _TerminalWindowClass
-{
-	GtkWindowClass parent_class;
-
+struct _TerminalWindowClass {
+  GtkWindowClass parent_class;
 };
 
-GType terminal_window_get_type (void) G_GNUC_CONST;
+GType terminal_window_get_type(void) G_GNUC_CONST;
 
-TerminalWindow* terminal_window_new (void);
+TerminalWindow *terminal_window_new(void);
 
-void terminal_window_set_is_restored (TerminalWindow *window);
+void terminal_window_set_is_restored(TerminalWindow *window);
 
-GtkUIManager *terminal_window_get_ui_manager (TerminalWindow *window);
+GtkUIManager *terminal_window_get_ui_manager(TerminalWindow *window);
 
-void terminal_window_add_screen (TerminalWindow *window,
-                                 TerminalScreen *screen,
-                                 int position);
+void terminal_window_add_screen(TerminalWindow *window, TerminalScreen *screen,
+                                int position);
 
-void terminal_window_remove_screen (TerminalWindow *window,
-                                    TerminalScreen *screen);
+void terminal_window_remove_screen(TerminalWindow *window,
+                                   TerminalScreen *screen);
 
-void terminal_window_move_screen (TerminalWindow *source_window,
-                                  TerminalWindow *dest_window,
-                                  TerminalScreen *screen,
-                                  int dest_position);
+void terminal_window_move_screen(TerminalWindow *source_window,
+                                 TerminalWindow *dest_window,
+                                 TerminalScreen *screen, int dest_position);
 
 /* Menubar visibility is part of session state, except that
  * if it isn't restored from session, the window gets the setting
  * from the profile of the first screen added to the window
  */
-void terminal_window_set_menubar_visible     (TerminalWindow *window,
-        gboolean        setting);
-gboolean terminal_window_get_menubar_visible (TerminalWindow *window);
+void terminal_window_set_menubar_visible(TerminalWindow *window,
+                                         gboolean setting);
+gboolean terminal_window_get_menubar_visible(TerminalWindow *window);
 
-void            terminal_window_switch_screen (TerminalWindow *window,
-        TerminalScreen *screen);
-TerminalScreen* terminal_window_get_active (TerminalWindow *window);
+void terminal_window_switch_screen(TerminalWindow *window,
+                                   TerminalScreen *screen);
+TerminalScreen *terminal_window_get_active(TerminalWindow *window);
 
-GList* terminal_window_list_screen_containers (TerminalWindow *window);
+GList *terminal_window_list_screen_containers(TerminalWindow *window);
 
-void terminal_window_update_geometry  (TerminalWindow *window);
-void
-terminal_window_update_size (TerminalWindow *window,
-                             TerminalScreen *screen,
-                             gboolean        even_if_mapped);
-gboolean
-terminal_window_update_size_set_geometry (TerminalWindow *window,
-                                          TerminalScreen *screen,
-                                          gboolean        even_if_mapped,
-                                          gchar          *geometry_string);
+void terminal_window_update_geometry(TerminalWindow *window);
+void terminal_window_update_size(TerminalWindow *window, TerminalScreen *screen,
+                                 gboolean even_if_mapped);
+gboolean terminal_window_update_size_set_geometry(TerminalWindow *window,
+                                                  TerminalScreen *screen,
+                                                  gboolean even_if_mapped,
+                                                  gchar *geometry_string);
 
-GtkWidget* terminal_window_get_notebook (TerminalWindow *window);
+GtkWidget *terminal_window_get_notebook(TerminalWindow *window);
 
-void terminal_window_save_state (TerminalWindow *window,
-                                 GKeyFile *key_file,
-                                 const char *group);
-void
-terminal_window_update_copy_selection (TerminalScreen *screen,
-                                       TerminalWindow *window);
+void terminal_window_save_state(TerminalWindow *window, GKeyFile *key_file,
+                                const char *group);
+void terminal_window_update_copy_selection(TerminalScreen *screen,
+                                           TerminalWindow *window);
 
-TerminalWindow *terminal_window_get_latest_focused (TerminalWindow *window1,
-                                                    TerminalWindow *window2);
+TerminalWindow *terminal_window_get_latest_focused(TerminalWindow *window1,
+                                                   TerminalWindow *window2);
 
 G_END_DECLS
 

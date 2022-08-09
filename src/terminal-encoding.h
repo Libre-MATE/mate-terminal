@@ -25,38 +25,37 @@
 
 #include <gtk/gtk.h>
 
-#define TERMINAL_TYPE_ENCODING (terminal_encoding_get_type ())
+#define TERMINAL_TYPE_ENCODING (terminal_encoding_get_type())
 
-typedef struct
-{
-	int   refcount;
-	char *id;
-	char *name;
-	guint valid            : 1;
-	guint validity_checked : 1;
-	guint is_custom        : 1;
-	guint is_active        : 1;
+typedef struct {
+  int refcount;
+  char *id;
+  char *name;
+  guint valid : 1;
+  guint validity_checked : 1;
+  guint is_custom : 1;
+  guint is_active : 1;
 } TerminalEncoding;
 
-GType terminal_encoding_get_type (void);
+GType terminal_encoding_get_type(void);
 
-TerminalEncoding *terminal_encoding_new (const char *charset,
-        const char *display_name,
-        gboolean is_custom,
-        gboolean force_valid);
+TerminalEncoding *terminal_encoding_new(const char *charset,
+                                        const char *display_name,
+                                        gboolean is_custom,
+                                        gboolean force_valid);
 
-TerminalEncoding *terminal_encoding_ref (TerminalEncoding *encoding);
+TerminalEncoding *terminal_encoding_ref(TerminalEncoding *encoding);
 
-void terminal_encoding_unref (TerminalEncoding *encoding);
+void terminal_encoding_unref(TerminalEncoding *encoding);
 
-gboolean terminal_encoding_is_valid (TerminalEncoding *encoding);
+gboolean terminal_encoding_is_valid(TerminalEncoding *encoding);
 
-const char *terminal_encoding_get_id (TerminalEncoding *encoding);
+const char *terminal_encoding_get_id(TerminalEncoding *encoding);
 
-const char *terminal_encoding_get_charset (TerminalEncoding *encoding);
+const char *terminal_encoding_get_charset(TerminalEncoding *encoding);
 
-GHashTable *terminal_encodings_get_builtins (void);
+GHashTable *terminal_encodings_get_builtins(void);
 
-void terminal_encoding_dialog_show (GtkWindow *transient_parent);
+void terminal_encoding_dialog_show(GtkWindow *transient_parent);
 
 #endif /* TERMINAL_ENCODING_H */

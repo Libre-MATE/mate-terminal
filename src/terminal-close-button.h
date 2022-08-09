@@ -26,34 +26,42 @@
 
 G_BEGIN_DECLS
 
-#define TERMINAL_TYPE_CLOSE_BUTTON			(terminal_close_button_get_type ())
-#define TERMINAL_CLOSE_BUTTON(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), TERMINAL_TYPE_CLOSE_BUTTON, TerminalCloseButton))
-#define TERMINAL_CLOSE_BUTTON_CONST(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), TERMINAL_TYPE_CLOSE_BUTTON, TerminalCloseButton const))
-#define TERMINAL_CLOSE_BUTTON_CLASS(klass)		(G_TYPE_CHECK_CLASS_CAST ((klass), TERMINAL_TYPE_CLOSE_BUTTON, TerminalCloseButtonClass))
-#define TERMINAL_IS_CLOSE_BUTTON(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), TERMINAL_TYPE_CLOSE_BUTTON))
-#define TERMINAL_IS_CLOSE_BUTTON_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), TERMINAL_TYPE_CLOSE_BUTTON))
-#define TERMINAL_CLOSE_BUTTON_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), TERMINAL_TYPE_CLOSE_BUTTON, TerminalCloseButtonClass))
+#define TERMINAL_TYPE_CLOSE_BUTTON (terminal_close_button_get_type())
+#define TERMINAL_CLOSE_BUTTON(obj)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), TERMINAL_TYPE_CLOSE_BUTTON, \
+                              TerminalCloseButton))
+#define TERMINAL_CLOSE_BUTTON_CONST(obj)                         \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), TERMINAL_TYPE_CLOSE_BUTTON, \
+                              TerminalCloseButton const))
+#define TERMINAL_CLOSE_BUTTON_CLASS(klass)                      \
+  (G_TYPE_CHECK_CLASS_CAST((klass), TERMINAL_TYPE_CLOSE_BUTTON, \
+                           TerminalCloseButtonClass))
+#define TERMINAL_IS_CLOSE_BUTTON(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), TERMINAL_TYPE_CLOSE_BUTTON))
+#define TERMINAL_IS_CLOSE_BUTTON_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), TERMINAL_TYPE_CLOSE_BUTTON))
+#define TERMINAL_CLOSE_BUTTON_GET_CLASS(obj)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), TERMINAL_TYPE_CLOSE_BUTTON, \
+                             TerminalCloseButtonClass))
 
-typedef struct _TerminalCloseButton		TerminalCloseButton;
-typedef struct _TerminalCloseButtonPrivate	TerminalCloseButtonPrivate;
-typedef struct _TerminalCloseButtonClass	TerminalCloseButtonClass;
-typedef struct _TerminalCloseButtonClassPrivate	TerminalCloseButtonClassPrivate;
+typedef struct _TerminalCloseButton TerminalCloseButton;
+typedef struct _TerminalCloseButtonPrivate TerminalCloseButtonPrivate;
+typedef struct _TerminalCloseButtonClass TerminalCloseButtonClass;
+typedef struct _TerminalCloseButtonClassPrivate TerminalCloseButtonClassPrivate;
 
-struct _TerminalCloseButton
-{
-	GtkButton parent;
+struct _TerminalCloseButton {
+  GtkButton parent;
 };
 
-struct _TerminalCloseButtonClass
-{
-	GtkButtonClass parent_class;
+struct _TerminalCloseButtonClass {
+  GtkButtonClass parent_class;
 
-	TerminalCloseButtonClassPrivate *priv;
+  TerminalCloseButtonClassPrivate *priv;
 };
 
-GType		  terminal_close_button_get_type (void) G_GNUC_CONST;
+GType terminal_close_button_get_type(void) G_GNUC_CONST;
 
-GtkWidget	 *terminal_close_button_new      (void);
+GtkWidget *terminal_close_button_new(void);
 
 G_END_DECLS
 

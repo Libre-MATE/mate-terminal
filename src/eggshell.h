@@ -28,13 +28,13 @@
 #ifndef __EGG_USER_SHELL_H__
 #define __EGG_USER_SHELL_H__
 
-#include <stdlib.h>
 #include <glib.h>
+#include <stdlib.h>
 
 G_BEGIN_DECLS
 
 /* Find the name of the user's shell.  */
-char *egg_shell (const char *shell);
+char *egg_shell(const char *shell);
 
 G_END_DECLS
 

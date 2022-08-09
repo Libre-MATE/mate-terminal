@@ -17,38 +17,32 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-
 #include "terminal-info-bar.h"
 
+#include <config.h>
 #include <gtk/gtk.h>
 
-struct _TerminalInfoBarPrivate
-{
-	GtkWidget *content_box;
+struct _TerminalInfoBarPrivate {
+  GtkWidget *content_box;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (TerminalInfoBar, terminal_info_bar, GTK_TYPE_INFO_BAR)
+G_DEFINE_TYPE_WITH_PRIVATE(TerminalInfoBar, terminal_info_bar,
+                           GTK_TYPE_INFO_BAR)
 
 /* helper functions */
 
-static void
-terminal_info_bar_init (TerminalInfoBar *bar)
-{
-	GtkInfoBar *info_bar = GTK_INFO_BAR (bar);
-	TerminalInfoBarPrivate *priv;
+static void terminal_info_bar_init(TerminalInfoBar *bar) {
+  GtkInfoBar *info_bar = GTK_INFO_BAR(bar);
+  TerminalInfoBarPrivate *priv;
 
-	priv = bar->priv = terminal_info_bar_get_instance_private (bar);
+  priv = bar->priv = terminal_info_bar_get_instance_private(bar);
 
-	priv->content_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-	gtk_box_pack_start (GTK_BOX (gtk_info_bar_get_content_area (info_bar)),
-	                    priv->content_box, TRUE, TRUE, 0);
+  priv->content_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+  gtk_box_pack_start(GTK_BOX(gtk_info_bar_get_content_area(info_bar)),
+                     priv->content_box, TRUE, TRUE, 0);
 }
 
-static void
-terminal_info_bar_class_init (TerminalInfoBarClass *klass)
-{
-}
+static void terminal_info_bar_class_init(TerminalInfoBarClass *klass) {}
 
 /* public API */
 
@@ -58,60 +52,51 @@ terminal_info_bar_class_init (TerminalInfoBarClass *klass)
  *
  * Returns: a new #TerminalInfoBar for @screen
  */
-GtkWidget *
-terminal_info_bar_new (GtkMessageType type,
-                       const char *first_button_text,
-                       ...)
-{
-	GtkWidget *info_bar;
-	va_list args;
+GtkWidget *terminal_info_bar_new(GtkMessageType type,
+                                 const char *first_button_text, ...) {
+  GtkWidget *info_bar;
+  va_list args;
 
-	info_bar = g_object_new (TERMINAL_TYPE_INFO_BAR,
-	                         "message-type", type,
-	                         NULL);
+  info_bar = g_object_new(TERMINAL_TYPE_INFO_BAR, "message-type", type, NULL);
 
-	va_start (args, first_button_text);
-	while (first_button_text != NULL)
-	{
-		int response_id;
+  va_start(args, first_button_text);
+  while (first_button_text != NULL) {
+    int response_id;
 
-		response_id = va_arg (args, int);
-		gtk_info_bar_add_button (GTK_INFO_BAR (info_bar),
-		                         first_button_text, response_id);
+    response_id = va_arg(args, int);
+    gtk_info_bar_add_button(GTK_INFO_BAR(info_bar), first_button_text,
+                            response_id);
 
-		first_button_text = va_arg (args, const char *);
-	}
-	va_end (args);
+    first_button_text = va_arg(args, const char *);
+  }
+  va_end(args);
 
-	return info_bar;
+  return info_bar;
 }
 
-void
-terminal_info_bar_format_text (TerminalInfoBar *bar,
-                               const char *format,
-                               ...)
-{
-	TerminalInfoBarPrivate *priv;
-	char *text;
-	GtkWidget *label;
-	va_list args;
+void terminal_info_bar_format_text(TerminalInfoBar *bar, const char *format,
+                                   ...) {
+  TerminalInfoBarPrivate *priv;
+  char *text;
+  GtkWidget *label;
+  va_list args;
 
-	g_return_if_fail (TERMINAL_IS_INFO_BAR (bar));
+  g_return_if_fail(TERMINAL_IS_INFO_BAR(bar));
 
-	priv = bar->priv;
+  priv = bar->priv;
 
-	va_start (args, format);
-	text = g_strdup_vprintf (format, args);
-	va_end (args);
+  va_start(args, format);
+  text = g_strdup_vprintf(format, args);
+  va_end(args);
 
-	label = gtk_label_new (text);
-	g_free (text);
+  label = gtk_label_new(text);
+  g_free(text);
 
-	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-	gtk_label_set_selectable (GTK_LABEL (label), TRUE);
-	gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-	gtk_label_set_yalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+  gtk_label_set_selectable(GTK_LABEL(label), TRUE);
+  gtk_label_set_xalign(GTK_LABEL(label), 0.0);
+  gtk_label_set_yalign(GTK_LABEL(label), 0.0);
 
-	gtk_box_pack_start (GTK_BOX (priv->content_box), label, FALSE, FALSE, 0);
-	gtk_widget_show_all (priv->content_box);
+  gtk_box_pack_start(GTK_BOX(priv->content_box), label, FALSE, FALSE, 0);
+  gtk_widget_show_all(priv->content_box);
 }

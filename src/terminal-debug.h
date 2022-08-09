@@ -26,49 +26,46 @@
 
 G_BEGIN_DECLS
 
-typedef enum
-{
-    TERMINAL_DEBUG_ACCELS     = 1 << 0,
-    TERMINAL_DEBUG_ENCODINGS  = 1 << 1,
-    TERMINAL_DEBUG_FACTORY    = 1 << 2,
-    TERMINAL_DEBUG_GEOMETRY   = 1 << 3,
-    TERMINAL_DEBUG_MDI        = 1 << 4,
-    TERMINAL_DEBUG_PROCESSES  = 1 << 5,
-    TERMINAL_DEBUG_PROFILE    = 1 << 6
+typedef enum {
+  TERMINAL_DEBUG_ACCELS = 1 << 0,
+  TERMINAL_DEBUG_ENCODINGS = 1 << 1,
+  TERMINAL_DEBUG_FACTORY = 1 << 2,
+  TERMINAL_DEBUG_GEOMETRY = 1 << 3,
+  TERMINAL_DEBUG_MDI = 1 << 4,
+  TERMINAL_DEBUG_PROCESSES = 1 << 5,
+  TERMINAL_DEBUG_PROFILE = 1 << 6
 } TerminalDebugFlags;
 
 void _terminal_debug_init(void);
 
 extern TerminalDebugFlags _terminal_debug_flags;
-static inline gboolean _terminal_debug_on (TerminalDebugFlags flags) G_GNUC_CONST G_GNUC_UNUSED;
+static inline gboolean _terminal_debug_on(TerminalDebugFlags flags)
+    G_GNUC_CONST G_GNUC_UNUSED;
 
-static inline gboolean
-_terminal_debug_on (TerminalDebugFlags flags)
-{
-	return (_terminal_debug_flags & flags) == flags;
+static inline gboolean _terminal_debug_on(TerminalDebugFlags flags) {
+  return (_terminal_debug_flags & flags) == flags;
 }
 
 #ifdef MATE_ENABLE_DEBUG
-#define _TERMINAL_DEBUG_IF(flags) if (G_UNLIKELY (_terminal_debug_on (flags)))
+#define _TERMINAL_DEBUG_IF(flags) if (G_UNLIKELY(_terminal_debug_on(flags)))
 #else
 #define _TERMINAL_DEBUG_IF(flags) if (0)
 #endif
 
 #if defined(__GNUC__) && G_HAVE_GNUC_VARARGS
-#define _terminal_debug_print(flags, fmt, ...) \
-  G_STMT_START { _TERMINAL_DEBUG_IF(flags) g_printerr(fmt, ##__VA_ARGS__); } G_STMT_END
+#define _terminal_debug_print(flags, fmt, ...)                               \
+  G_STMT_START { _TERMINAL_DEBUG_IF(flags) g_printerr(fmt, ##__VA_ARGS__); } \
+  G_STMT_END
 #else
-#include <stdarg.h>
 #include <glib/gstdio.h>
-static void _terminal_debug_print (guint flags, const char *fmt, ...)
-{
-	if (_terminal_debug_on (flags))
-	{
-		va_list  ap;
-		va_start (ap, fmt);
-		g_vfprintf (stderr, fmt, ap);
-		va_end (ap);
-	}
+#include <stdarg.h>
+static void _terminal_debug_print(guint flags, const char *fmt, ...) {
+  if (_terminal_debug_on(flags)) {
+    va_list ap;
+    va_start(ap, fmt);
+    g_vfprintf(stderr, fmt, ap);
+    va_end(ap);
+  }
 }
 #endif
 

@@ -33,17 +33,15 @@
  * Author: Miguel de Icaza,
  */
 
-#include <config.h>
-
 #include "eggshell.h"
 
-#include <stdlib.h>
+#include <config.h>
+#include <glib.h>
+#include <pwd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <pwd.h>
-
-#include <glib.h>
 
 /**
  * egg_shell:
@@ -53,54 +51,40 @@
  *
  * Returns: A newly allocated string that is the path to the shell.
  */
-char *
-egg_shell (const char *shell)
-{
-	struct passwd *pw;
-	int i;
-	static const char shells [][14] =
-	{
-		/* Note that on some systems shells can also
-		 * be installed in /usr/bin */
-		"/bin/bash", "/usr/bin/bash",
-		"/bin/zsh", "/usr/bin/zsh",
-		"/bin/tcsh", "/usr/bin/tcsh",
-		"/bin/ksh", "/usr/bin/ksh",
-		"/bin/csh", "/bin/sh"
-	};
+char *egg_shell(const char *shell) {
+  struct passwd *pw;
+  int i;
+  static const char shells[][14] = {
+      /* Note that on some systems shells can also
+       * be installed in /usr/bin */
+      "/bin/bash", "/usr/bin/bash", "/bin/zsh", "/usr/bin/zsh",
+      "/bin/tcsh", "/usr/bin/tcsh", "/bin/ksh", "/usr/bin/ksh",
+      "/bin/csh",  "/bin/sh"};
 
-	if (geteuid () == getuid () &&
-	        getegid () == getgid ())
-	{
-		/* only in non-setuid */
-		if (shell != NULL)
-		{
-			if (access (shell, X_OK) == 0)
-			{
-				return g_strdup (shell);
-			}
-		}
-	}
-	pw = getpwuid(getuid());
-	if (pw && pw->pw_shell)
-	{
-		if (access (pw->pw_shell, X_OK) == 0)
-		{
-			return g_strdup (pw->pw_shell);
-		}
-	}
+  if (geteuid() == getuid() && getegid() == getgid()) {
+    /* only in non-setuid */
+    if (shell != NULL) {
+      if (access(shell, X_OK) == 0) {
+        return g_strdup(shell);
+      }
+    }
+  }
+  pw = getpwuid(getuid());
+  if (pw && pw->pw_shell) {
+    if (access(pw->pw_shell, X_OK) == 0) {
+      return g_strdup(pw->pw_shell);
+    }
+  }
 
-	for (i = 0; i != G_N_ELEMENTS (shells); i++)
-	{
-		if (access (shells [i], X_OK) == 0)
-		{
-			return g_strdup (shells[i]);
-		}
-	}
+  for (i = 0; i != G_N_ELEMENTS(shells); i++) {
+    if (access(shells[i], X_OK) == 0) {
+      return g_strdup(shells[i]);
+    }
+  }
 
-	/* If /bin/sh doesn't exist, your system is truly broken.  */
-	g_assert_not_reached ();
+  /* If /bin/sh doesn't exist, your system is truly broken.  */
+  g_assert_not_reached();
 
-	/* Placate compiler.  */
-	return NULL;
+  /* Placate compiler.  */
+  return NULL;
 }

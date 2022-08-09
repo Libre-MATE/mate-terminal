@@ -28,81 +28,69 @@
 
 G_BEGIN_DECLS
 
-#define CONF_PROXY_SCHEMA      "org.gnome.system.proxy"
+#define CONF_PROXY_SCHEMA "org.gnome.system.proxy"
 #define CONF_HTTP_PROXY_SCHEMA "org.gnome.system.proxy.http"
 #define CONF_HTTPS_PROXY_SCHEMA "org.gnome.system.proxy.https"
 #define CONF_FTP_PROXY_SCHEMA "org.gnome.system.proxy.ftp"
 #define CONF_SOCKS_PROXY_SCHEMA "org.gnome.system.proxy.socks"
 
-void terminal_util_set_unique_role (GtkWindow *window, const char *prefix);
+void terminal_util_set_unique_role(GtkWindow *window, const char *prefix);
 
-void terminal_util_show_error_dialog (GtkWindow *transient_parent,
-                                      GtkWidget **weap_ptr,
-                                      GError *error,
-                                      const char *message_format, ...) G_GNUC_PRINTF(4, 5);
+void terminal_util_show_error_dialog(GtkWindow *transient_parent,
+                                     GtkWidget **weap_ptr, GError *error,
+                                     const char *message_format, ...)
+    G_GNUC_PRINTF(4, 5);
 
-void terminal_util_show_help (const char *topic, GtkWindow  *transient_parent);
+void terminal_util_show_help(const char *topic, GtkWindow *transient_parent);
 
-void terminal_util_set_labelled_by          (GtkWidget  *widget,
-        GtkLabel   *label);
-void terminal_util_set_atk_name_description (GtkWidget  *widget,
-        const char *name,
-        const char *desc);
+void terminal_util_set_labelled_by(GtkWidget *widget, GtkLabel *label);
+void terminal_util_set_atk_name_description(GtkWidget *widget, const char *name,
+                                            const char *desc);
 
-void terminal_util_open_url (GtkWidget *parent,
-                             const char *orig_url,
-                             TerminalURLFlavour flavor,
-                             guint32 user_time);
+void terminal_util_open_url(GtkWidget *parent, const char *orig_url,
+                            TerminalURLFlavour flavor, guint32 user_time);
 
-char *terminal_util_resolve_relative_path (const char *path,
-        const char *relative_path);
+char *terminal_util_resolve_relative_path(const char *path,
+                                          const char *relative_path);
 
-void terminal_util_transform_uris_to_quoted_fuse_paths (char **uris);
+void terminal_util_transform_uris_to_quoted_fuse_paths(char **uris);
 
-char *terminal_util_concat_uris (char **uris,
-                                 gsize *length);
+char *terminal_util_concat_uris(char **uris, gsize *length);
 
-char *terminal_util_get_licence_text (void);
+char *terminal_util_get_licence_text(void);
 
-gboolean terminal_util_load_builder_resource (const char *path,
-        const char *object_name,
-        ...);
+gboolean terminal_util_load_builder_resource(const char *path,
+                                             const char *object_name, ...);
 
-gboolean terminal_util_dialog_response_on_delete (GtkWindow *widget);
+gboolean terminal_util_dialog_response_on_delete(GtkWindow *widget);
 
-void terminal_util_key_file_set_string_escape    (GKeyFile *key_file,
-        const char *group,
-        const char *key,
-        const char *string);
-char *terminal_util_key_file_get_string_unescape (GKeyFile *key_file,
-        const char *group,
-        const char *key,
-        GError **error);
+void terminal_util_key_file_set_string_escape(GKeyFile *key_file,
+                                              const char *group,
+                                              const char *key,
+                                              const char *string);
+char *terminal_util_key_file_get_string_unescape(GKeyFile *key_file,
+                                                 const char *group,
+                                                 const char *key,
+                                                 GError **error);
 
-void terminal_util_key_file_set_argv      (GKeyFile *key_file,
-        const char *group,
-        const char *key,
-        int argc,
-        char **argv);
-char **terminal_util_key_file_get_argv    (GKeyFile *key_file,
-        const char *group,
-        const char *key,
-        int *argc,
-        GError **error);
+void terminal_util_key_file_set_argv(GKeyFile *key_file, const char *group,
+                                     const char *key, int argc, char **argv);
+char **terminal_util_key_file_get_argv(GKeyFile *key_file, const char *group,
+                                       const char *key, int *argc,
+                                       GError **error);
 
-void terminal_util_add_proxy_env (GHashTable *env_table);
+void terminal_util_add_proxy_env(GHashTable *env_table);
 
-typedef enum
-{
-    FLAG_INVERT_BOOL  = 1 << 0,
+typedef enum {
+  FLAG_INVERT_BOOL = 1 << 0,
 } PropertyChangeFlags;
 
-void terminal_util_bind_object_property_to_widget (GObject *object,
-        const char *object_prop,
-        GtkWidget *widget,
-        PropertyChangeFlags flags);
+void terminal_util_bind_object_property_to_widget(GObject *object,
+                                                  const char *object_prop,
+                                                  GtkWidget *widget,
+                                                  PropertyChangeFlags flags);
 
-void terminal_util_x11_clear_demands_attention (GdkWindow *window);
+void terminal_util_x11_clear_demands_attention(GdkWindow *window);
 
 G_END_DECLS
 
