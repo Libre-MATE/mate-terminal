@@ -319,7 +319,7 @@ TerminalScreenContainer *terminal_screen_container_get_from_screen(
  * Sets @container's scrollbar policy.
  */
 void terminal_screen_container_set_policy(TerminalScreenContainer *container,
-                                          GtkPolicyType hpolicy G_GNUC_UNUSED,
+                                          GtkPolicyType hpolicy,
                                           GtkPolicyType vpolicy) {
   TerminalScreenContainerPrivate *priv;
   GObject *object;

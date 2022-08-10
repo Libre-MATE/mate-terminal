@@ -40,7 +40,7 @@ void _terminal_debug_init(void);
 
 extern TerminalDebugFlags _terminal_debug_flags;
 static inline gboolean _terminal_debug_on(TerminalDebugFlags flags)
-    G_GNUC_CONST G_GNUC_UNUSED;
+    G_GNUC_CONST;
 
 static inline gboolean _terminal_debug_on(TerminalDebugFlags flags) {
   return (_terminal_debug_flags & flags) == flags;
