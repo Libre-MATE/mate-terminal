@@ -1032,10 +1032,7 @@ static void update_color_scheme(TerminalScreen *screen) {
 
     gtk_widget_queue_draw(GTK_WIDGET(screen));
   } else {
-    if (priv->bg_image_callback_id) {
-      g_signal_handler_disconnect(screen, priv->bg_image_callback_id);
-      priv->bg_image_callback_id = 0;
-    }
+    g_clear_signal_handler(&priv->bg_image_callback_id, screen);
   }
 
   vte_terminal_set_colors(VTE_TERMINAL(screen), &fg, &bg, colors, n_colors);
@@ -1108,17 +1105,8 @@ void terminal_screen_set_profile(TerminalScreen *screen,
   old_profile = priv->profile;
   if (profile == old_profile) return;
 
-  if (priv->profile_changed_id) {
-    g_signal_handler_disconnect(G_OBJECT(priv->profile),
-                                priv->profile_changed_id);
-    priv->profile_changed_id = 0;
-  }
-
-  if (priv->profile_forgotten_id) {
-    g_signal_handler_disconnect(G_OBJECT(priv->profile),
-                                priv->profile_forgotten_id);
-    priv->profile_forgotten_id = 0;
-  }
+  g_clear_signal_handler(&priv->profile_changed_id, priv->profile);
+  g_clear_signal_handler(&priv->profile_forgotten_id, priv->profile);
 
   priv->profile = profile;
   if (profile) {
@@ -1127,7 +1115,7 @@ void terminal_screen_set_profile(TerminalScreen *screen,
         g_signal_connect(profile, "notify",
                          G_CALLBACK(terminal_screen_profile_notify_cb), screen);
     priv->profile_forgotten_id =
-        g_signal_connect(G_OBJECT(profile), "forgotten",
+        g_signal_connect(profile, "forgotten",
                          G_CALLBACK(profile_forgotten_callback), screen);
 
     terminal_screen_profile_notify_cb(profile, NULL, screen);

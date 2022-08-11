@@ -600,8 +600,7 @@ typedef struct {
 } PropertyChange;
 
 static void property_change_free(PropertyChange *change) {
-  g_signal_handler_disconnect(change->object, change->object_notify_id);
-
+  g_clear_signal_handler(&change->object_notify_id, change->object);
   g_slice_free(PropertyChange, change);
 }
 
