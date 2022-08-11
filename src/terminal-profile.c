@@ -667,15 +667,6 @@ static void terminal_profile_gsettings_changeset_add(TerminalProfile *profile,
   char *key;
   const GValue *value;
 
-  /* FIXME: do this? */
-#if 0
-	if (priv->locked[pspec->param_id])
-		return;
-
-	if (!g_settings_is_writable (priv->settings, gsettings_key, NULL))
-		return;
-#endif
-
   key = g_param_spec_get_qdata(pspec, gsettings_key_quark);
   if (!key) return;
 
@@ -1006,25 +997,6 @@ static void terminal_profile_set_property(GObject *object, guint prop_id,
 
   /* Preprocessing */
   switch (prop_id) {
-#if 0
-	case PROP_FONT:
-	{
-		PangoFontDescription *font_desc, *new_font_desc;
-
-		font_desc = g_value_get_boxed (prop_value);
-		new_font_desc = g_value_get_boxed (value);
-
-		if (font_desc && new_font_desc)
-		{
-			/* Merge in case the new string isn't complete enough to load a font */
-			pango_font_description_merge (font_desc, new_font_desc, TRUE);
-			pango_font_description_free (new_font_desc);
-			break;
-		}
-
-		/* fall-through */
-	}
-#endif
     default:
       g_value_copy(value, prop_value);
       break;

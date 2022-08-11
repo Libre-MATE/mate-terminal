@@ -1457,12 +1457,6 @@ static gboolean terminal_window_accel_activate_cb(GtkAccelGroup *accel_group,
 
       action_name = I_(accel_path + strlen("<Actions>/Main/"));
 
-#if 0
-            if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) > 1 &&
-                    (action_name == I_("TabsPrevious") || action_name == I_("TabsNext")))
-                retval = TRUE;
-            else
-#endif
       if (action_name == I_("EditCopy") || action_name == I_("PopupCopy") ||
           action_name == I_("EditPaste") || action_name == I_("PopupPaste"))
         retval = TRUE;
@@ -1722,18 +1716,6 @@ static void terminal_window_init(TerminalWindow *window) {
      NULL, G_CALLBACK(search_find_prev_callback)},
     {"SearchClearHighlight", NULL, N_("_Clear Highlight"), "<shift><control>J",
      NULL, G_CALLBACK(search_clear_highlight_callback)},
-#if 0
-        {
-            "SearchGoToLine", "go-jump", N_("Go to _Line..."), "<shift><control>I",
-            NULL,
-            G_CALLBACK (search_goto_line_callback)
-        },
-        {
-            "SearchIncrementalSearch", "edit-find", N_("_Incremental Search..."), "<shift><control>K",
-            NULL,
-            G_CALLBACK (search_incremental_search_callback)
-        },
-#endif
 
     /* Terminal menu */
     {"TerminalProfiles", NULL, N_("Change _Profile"), NULL, NULL, NULL},
@@ -2074,11 +2056,6 @@ static void terminal_window_show(GtkWidget *widget) {
 
   if (priv->active_screen != NULL) {
     terminal_window_update_copy_selection(priv->active_screen, window);
-#if 0
-        /* At this point, we have our GdkScreen, and hence the right
-         * font size, so we can go ahead and size the window. */
-        terminal_window_update_size (window, priv->active_screen, FALSE);
-#endif
   }
 
   terminal_window_update_geometry(window);
@@ -2702,23 +2679,6 @@ static void notebook_page_added_callback(GtkWidget *notebook,
   update_tab_visibility(window, 0);
   terminal_window_update_tabs_menu_sensitivity(window);
   terminal_window_update_search_sensitivity(screen, window);
-
-#if 0
-    /* FIXMEchpe: wtf is this doing? */
-
-    /* If we have an active screen, match its size and zoom */
-    if (priv->active_screen)
-    {
-        int current_width, current_height;
-        double scale;
-
-        terminal_screen_get_size (priv->active_screen, &current_width, &current_height);
-        vte_terminal_set_size (VTE_TERMINAL (screen), current_width, current_height);
-
-        scale = terminal_screen_get_font_scale (priv->active_screen);
-        terminal_screen_set_font_scale (screen, scale);
-    }
-#endif
 
   if (priv->present_on_insert) {
     gtk_window_present_with_time(GTK_WINDOW(window),

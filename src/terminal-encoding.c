@@ -115,17 +115,6 @@ static const struct {
     {"WINDOWS-1256", N_("Arabic")},
     {"WINDOWS-1257", N_("Baltic")},
     {"WINDOWS-1258", N_("Vietnamese")},
-#if 0
-	/* These encodings do NOT pass-through ASCII, so are always rejected.
-	 * FIXME: why are they in this table; or rather why do we need
-	 * the ASCII pass-through requirement?
-	 */
-	{ "UTF-7",  N_("Unicode") },
-	{ "UTF-16", N_("Unicode") },
-	{ "UCS-2",  N_("Unicode") },
-	{ "UCS-4",  N_("Unicode") },
-	{ "JOHAB",  N_("Korean") },
-#endif
 };
 
 typedef struct {

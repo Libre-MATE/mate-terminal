@@ -1629,13 +1629,6 @@ char *terminal_screen_get_current_dir(TerminalScreen *screen) {
 
   pty = vte_terminal_get_pty(VTE_TERMINAL(screen));
   if (pty != NULL) {
-#if 0
-		/* Get the foreground process ID */
-		cwd = cwd_of_pid (tcgetpgrp (priv->pty_fd));
-		if (cwd != NULL)
-			return cwd;
-#endif
-
     /* If that didn't work, try falling back to the primary child. See bug
      * #575184. */
     cwd = cwd_of_pid(priv->child_pid);
@@ -1790,25 +1783,6 @@ static void terminal_screen_drag_data_received(GtkWidget *widget,
   selection_data_target = gtk_selection_data_get_target(selection_data);
   selection_data_length = gtk_selection_data_get_length(selection_data);
   selection_data_format = gtk_selection_data_get_format(selection_data);
-
-#if 0
-	{
-		GList *tmp;
-
-		g_print ("info: %d\n", info);
-		tmp = context->targets;
-		while (tmp != NULL)
-		{
-			GdkAtom atom = GDK_POINTER_TO_ATOM (tmp->data);
-
-			g_print ("Target: %s\n", gdk_atom_name (atom));
-
-			tmp = tmp->next;
-		}
-
-		g_print ("Chosen target: %s\n", gdk_atom_name (selection_data->target));
-	}
-#endif
 
   if (gtk_targets_include_uri(&selection_data_target, 1)) {
     char **uris;
@@ -2155,29 +2129,4 @@ gboolean terminal_screen_has_foreground_process(TerminalScreen *screen) {
   if (fgpid == -1 || fgpid == priv->child_pid) return FALSE;
 
   return TRUE;
-
-#if 0
-	char *cmdline, *basename, *name;
-	gsize len;
-	char filename[64];
-
-	g_snprintf (filename, sizeof (filename), "/proc/%d/cmdline", fgpid);
-	if (!g_file_get_contents (filename, &cmdline, &len, NULL))
-		return TRUE;
-
-	basename = g_path_get_basename (cmdline);
-	g_free (cmdline);
-	if (!basename)
-		return TRUE;
-
-	name = g_filename_to_utf8 (basename, -1, NULL, NULL, NULL);
-	g_free (basename);
-	if (!name)
-		return TRUE;
-
-	if (process_name)
-		*process_name = name;
-
-	return TRUE;
-#endif
 }
