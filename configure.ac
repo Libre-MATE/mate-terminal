@@ -6,8 +6,9 @@ m4_define(mt_version, mt_major_version.mt_minor_version.mt_micro_version)
 m4_define(mt_api_version, 0)
 
 AC_INIT([mate-terminal],[mt_version],
-        [https://github.com/mate-desktop/mate-terminal/issues],
-        [mate-terminal], [https://mate-desktop.org])
+        [https://github.com/Libre-MATE/mate-terminal/issues],
+        [mate-terminal],
+        [https://github.com/Libre-MATE/mate-terminal])
 AC_PREREQ(2.60)
 
 AC_CONFIG_SRCDIR([src/terminal.c])
