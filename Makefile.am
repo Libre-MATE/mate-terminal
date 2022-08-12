@@ -1,4 +1,11 @@
-SUBDIRS = po src help
+if USE_NLS
+PO_SUBDIR = po
+endif
+
+SUBDIRS = \
+	$(PO_SUBDIR) \
+	src \
+	help
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
@@ -15,13 +22,21 @@ appdata_DATA = mate-terminal.appdata.xml
 appdata_in_files = $(appdata_DATA:.xml=.xml.in)
 appdata_in_in_files = $(appdata_in_files:.xml.in=.xml.in.in)
 $(appdata_DATA): $(appdata_in_files)
+if USE_NLS
 	$(AM_V_GEN) $(MSGFMT) --xml --template $< -d $(top_srcdir)/po -o $@
+else
+	$(AM_V_GEN) cp -f $< $@
+endif
 
 desktopdir = $(datadir)/applications
 desktop_in_files = mate-terminal.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 $(desktop_DATA): $(desktop_in_files)
+if USE_NLS
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+else
+	$(AM_V_GEN) cp -f $< $@
+endif
 
 man_MANS = mate-terminal.1
 
