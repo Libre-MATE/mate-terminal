@@ -8,7 +8,7 @@ m4_define(mt_api_version, 0)
 AC_INIT([mate-terminal],[mt_version],
         [https://github.com/mate-desktop/mate-terminal/issues],
         [mate-terminal], [https://mate-desktop.org])
-AC_PREREQ(2.59)
+AC_PREREQ(2.60)
 
 AC_CONFIG_SRCDIR([src/terminal.c])
 AC_CONFIG_HEADERS([config.h])
@@ -37,7 +37,7 @@ AC_C_BIGENDIAN
 
 PKG_PROG_PKG_CONFIG
 AC_PROG_CC
-AM_PROG_LIBTOOL
+LT_INIT
 
 GLIB_REQUIRED=2.62.0
 GIO_REQUIRED=2.62.0
