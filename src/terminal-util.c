@@ -89,7 +89,7 @@ void terminal_util_show_error_dialog(GtkWindow *transient_parent,
       gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s",
                                                error->message);
 
-    g_signal_connect(G_OBJECT(dialog), "response",
+    g_signal_connect(dialog, "response",
                      G_CALLBACK(gtk_widget_destroy), NULL);
 
     if (weak_ptr != NULL) {

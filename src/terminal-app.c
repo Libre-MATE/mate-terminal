@@ -1069,7 +1069,7 @@ void terminal_app_new_profile(TerminalApp *app,
             &base_label, NULL))
       return;
 
-    g_signal_connect(G_OBJECT(app->new_profile_dialog), "response",
+    g_signal_connect(app->new_profile_dialog, "response",
                      G_CALLBACK(new_profile_response_cb), app);
     g_signal_connect(app->new_profile_dialog, "destroy",
                      G_CALLBACK(new_profile_dialog_destroy_cb), app);

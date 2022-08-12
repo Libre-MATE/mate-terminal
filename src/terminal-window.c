@@ -1808,9 +1808,9 @@ static void terminal_window_init(TerminalWindow *window) {
 
   priv = window->priv = terminal_window_get_instance_private(window);
 
-  g_signal_connect(G_OBJECT(window), "delete_event",
+  g_signal_connect(window, "delete_event",
                    G_CALLBACK(terminal_window_delete_event), NULL);
-  g_signal_connect(G_OBJECT(window), "focus_in_event",
+  g_signal_connect(window, "focus_in_event",
                    G_CALLBACK(terminal_window_focus_in_event), NULL);
 
 #ifdef MATE_ENABLE_DEBUG
@@ -2657,7 +2657,7 @@ static void notebook_page_added_callback(GtkWidget *notebook,
                         "[window %p] MDI: screen %p inserted\n", window,
                         screen);
 
-  g_signal_connect(G_OBJECT(screen), "profile-set",
+  g_signal_connect(screen, "profile-set",
                    G_CALLBACK(profile_set_callback), window);
 
   /* FIXME: only connect on the active screen, not all screens! */
