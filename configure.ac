@@ -8,6 +8,8 @@ m4_define(mt_api_version, 0)
 AC_INIT([mate-terminal],[mt_version],
         [https://github.com/mate-desktop/mate-terminal/issues],
         [mate-terminal], [https://mate-desktop.org])
+AC_PREREQ(2.59)
+
 AC_CONFIG_SRCDIR([src/terminal.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -127,22 +129,25 @@ fi
 
 AM_CONDITIONAL([ENABLE_SKEY],[test "$enable_skey" = "yes"])
 
+
+# ****************************
+# Gettext
+# ****************************
+
+GETTEXT_PACKAGE=AC_PACKAGE_NAME
+AC_SUBST([GETTEXT_PACKAGE])
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],["$GETTEXT_PACKAGE"],[Gettext package])
+
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
+AM_CONDITIONAL([USE_NLS], [test "x${USE_NLS}" = "xyes"])
+
 # *************
 # Documentation
 # *************
 
 YELP_HELP_INIT
-
-# ****************************
-
-# ****************************
-AM_GNU_GETTEXT_VERSION([0.19.8])
-AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
-AM_GNU_GETTEXT([external])
-
-GETTEXT_PACKAGE=mate-terminal
-AC_SUBST([GETTEXT_PACKAGE])
-AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],["$GETTEXT_PACKAGE"],[Gettext package])
 
 AC_CONFIG_FILES([
 Makefile
@@ -170,13 +175,15 @@ Configure summary:
 	${PACKAGE_STRING}
 	`echo $PACKAGE_STRING | sed "s/./=/g"`
 
-	prefix:                 ${prefix}
-	source code location:   ${srcdir}
-	compiler:               ${CC}
-	cflags:                 ${CFLAGS}
-	warning flags:          ${WARN_CFLAGS}
-	linker flags:           ${LDFLAGS}
+	prefix .................... ${prefix}
+	source code location ...... ${srcdir}
+	compiler .................. ${CC}
+	cflags .................... ${CFLAGS}
+	warning flags ............. ${WARN_CFLAGS}
+	linker flags .............. ${LDFLAGS}
 
-	smclient support:       ${have_sm}
-	s/key support:          ${enable_skey}
+	smclient support .......... ${have_sm}
+	s/key support ............. ${enable_skey}
+
+	Native Language support ... $USE_NLS
 "
