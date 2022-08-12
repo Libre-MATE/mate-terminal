@@ -18,9 +18,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "terminal-screen-container.h"
 
-#include <config.h>
 #include <gtk/gtk.h>
 
 #include "terminal-debug.h"

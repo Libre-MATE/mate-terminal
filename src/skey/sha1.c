@@ -1,7 +1,10 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "sha1.h"
 
 #include <arpa/inet.h>
-#include <config.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <string.h>

@@ -33,9 +33,12 @@
  * Author: Miguel de Icaza,
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "eggshell.h"
 
-#include <config.h>
 #include <glib.h>
 #include <pwd.h>
 #include <stdio.h>

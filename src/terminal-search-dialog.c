@@ -19,11 +19,14 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "terminal-search-dialog.h"
 
 #include <string.h>
 
-#include "config.h"
 #include "terminal-util.h"
 
 #define PCRE2_CODE_UNIT_WIDTH 0

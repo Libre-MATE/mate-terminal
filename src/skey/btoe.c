@@ -3,9 +3,12 @@
  * (See rfc2289 and rfc1760)
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "btoe.h"
 
-#include <config.h>
 #include <glib.h>
 #include <stdio.h>
 #include <string.h>

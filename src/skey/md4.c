@@ -23,12 +23,15 @@
  * written by Colin Plumb in 1993.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "md4.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-#include "config.h"
 #include "skey.h"
 #include "skeyutil.h"
 

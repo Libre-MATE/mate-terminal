@@ -20,9 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "terminal-close-button.h"
-
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
+
+#include "terminal-close-button.h"
 
 struct _TerminalCloseButtonClassPrivate {
   GtkCssProvider *css;

@@ -1,6 +1,9 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "skeyutil.h"
 
-#include <config.h>
 #include <ctype.h>
 #include <glib.h>
 

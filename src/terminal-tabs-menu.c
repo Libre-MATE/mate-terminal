@@ -20,9 +20,12 @@
  * USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "terminal-tabs-menu.h"
 
-#include <config.h>
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include <string.h>
