@@ -10,7 +10,7 @@ AC_INIT([mate-terminal],[mt_version],
         [mate-terminal],
         [https://github.com/Libre-MATE/mate-terminal])
 AC_PREREQ(2.60)
-
+AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 AC_CONFIG_SRCDIR([src/terminal.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
