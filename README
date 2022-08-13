@@ -6,8 +6,7 @@ report a bug. ;-)
 
 MATE terminal is a fork of GNOME terminal.
 
-How it works
-===
+== How it works ==
 
 Profiles -
   all settings are stored in profiles. prefs dialog edits the current
@@ -24,14 +23,13 @@ Command line options -
 == Install ==
 
 In order to build this program from the source code you need git installed and
- a working MATE environment, with the development tools installed
-properly.
+ a working MATE environment, with the development tools installed properly.
 
 Example:
-git submodule init
-git submodule update --remote --recursive
-./autogen.sh --prefix=/usr --sysconfdir=/etc \
-    --disable-static --localstatedir=/var --with-gnu-ld
-make
-sudo make install
 
+  git submodule init
+  git submodule update --remote --recursive
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc \
+    --disable-static --localstatedir=/var --with-gnu-ld
+  make
+  sudo make install
