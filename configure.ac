@@ -30,20 +30,13 @@ AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 AC_CONFIG_SRCDIR([src/terminal.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
-
-AM_INIT_AUTOMAKE([1.9 foreign no-dist-gzip dist-xz check-news])
+AM_INIT_AUTOMAKE([1.11 foreign no-dist-gzip dist-xz silent-rules check-news])
+AM_MAINTAINER_MODE([enable])
 
 AC_SUBST(TERMINAL_MAJOR_VERSION, mt_major_version)
 AC_SUBST(TERMINAL_MINOR_VERSION, mt_minor_version)
 AC_SUBST(TERMINAL_MICRO_VERSION, mt_micro_version)
 AC_SUBST(TERMINAL_API_VERSION, mt_api_version)
-
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-
-if test -z "$enable_maintainer_mode"; then
-  enable_maintainer_mode=yes
-fi
-AM_MAINTAINER_MODE([enable])
 
 MATE_COMMON_INIT
 MATE_DEBUG_CHECK([no])
