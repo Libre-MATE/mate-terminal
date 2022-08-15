@@ -58,8 +58,8 @@ typedef struct {
 
 struct _TerminalScreenPrivate {
   TerminalProfile *profile; /* may be NULL at times */
-  guint profile_changed_id;
-  guint profile_forgotten_id;
+  gulong profile_changed_id;
+  gulong profile_forgotten_id;
   char *raw_title, *raw_icon_title;
   char *cooked_title, *cooked_icon_title;
   char *override_title;
