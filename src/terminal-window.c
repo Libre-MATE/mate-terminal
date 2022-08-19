@@ -1910,7 +1910,9 @@ static void terminal_window_dispose(GObject *object) {
   TerminalWindow *window = TERMINAL_WINDOW(object);
   TerminalWindowPrivate *priv = window->priv;
   TerminalApp *app;
+#ifdef GDK_WINDOWING_X11
   GdkScreen *screen;
+#endif /* GDK_WINDOWING_X11 */
   GtkClipboard *clipboard;
 
   remove_popup_info(window);
@@ -1943,7 +1945,7 @@ static void terminal_window_dispose(GObject *object) {
     g_signal_handlers_disconnect_by_func(
         screen, G_CALLBACK(terminal_window_window_manager_changed_cb), window);
   }
-#endif
+#endif /* GDK_WINDOWING_X11 */
 
   G_OBJECT_CLASS(terminal_window_parent_class)->dispose(object);
 }
