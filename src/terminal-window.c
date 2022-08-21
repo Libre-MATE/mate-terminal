@@ -2381,17 +2381,16 @@ static gboolean notebook_button_press_cb(GtkWidget *widget,
   GtkWidget *menu;
   GtkAction *action;
   int tab_clicked;
-  int page_num;
-  int before_pages;
-  int later_pages;
 
   if ((event->type == GDK_BUTTON_PRESS && event->button == 2) &&
       (g_settings_get_boolean(settings, "middle-click-closes-tabs"))) {
     tab_clicked =
         find_tab_num_at_pos(notebook, (int)event->x_root, (int)event->y_root);
     if (tab_clicked >= 0) {
-      before_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK(notebook));
-      page_num = gtk_notebook_get_current_page(notebook);
+      int later_pages;
+      int before_pages = gtk_notebook_get_n_pages(GTK_NOTEBOOK(notebook));
+      int page_num = gtk_notebook_get_current_page(notebook);
+
       gtk_notebook_set_current_page(notebook, tab_clicked);
       TerminalScreen *active_screen = priv->active_screen;
 

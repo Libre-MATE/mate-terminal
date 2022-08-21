@@ -370,11 +370,10 @@ static void tab_set_action_accelerator(GtkActionGroup *action_group,
 static void terminal_tabs_menu_update(TerminalTabsMenu *menu) {
   TerminalTabsMenuPrivate *p = menu->priv;
   GtkUIManager *manager;
-  GtkAction *action;
   GList *tabs = NULL, *l;
-  guint i = 0, n;
   gboolean is_single_tab;
-  const char *verb;
+  guint i = 0;
+  guint n;
 
   terminal_tabs_menu_clean(menu);
 
@@ -391,8 +390,9 @@ static void terminal_tabs_menu_update(TerminalTabsMenu *menu) {
   for (l = tabs; l != NULL; l = l->next) {
     TerminalScreenContainer *container = TERMINAL_SCREEN_CONTAINER(l->data);
     GObject *screen = G_OBJECT(terminal_screen_container_get_screen(container));
+    GtkAction *action = g_object_get_data(screen, DATA_KEY);
+    const char *verb;
 
-    action = g_object_get_data(screen, DATA_KEY);
     g_return_if_fail(action != NULL);
 
     verb = gtk_action_get_name(action);

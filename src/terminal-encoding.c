@@ -257,13 +257,12 @@ GType terminal_encoding_get_type(void) {
 static void update_active_encodings_gsettings(void) {
   GSList *list, *l;
   GArray *strings;
-  const gchar *id_string;
 
   list = terminal_app_get_active_encodings(terminal_app_get());
   strings = g_array_new(TRUE, TRUE, sizeof(gchar *));
   for (l = list; l != NULL; l = l->next) {
     TerminalEncoding *encoding = (TerminalEncoding *)l->data;
-    id_string = terminal_encoding_get_id(encoding);
+    const gchar *id_string = terminal_encoding_get_id(encoding);
 
     strings = g_array_append_val(strings, id_string);
   }
@@ -508,8 +507,8 @@ void terminal_encoding_dialog_show(GtkWindow *transient_parent) {
 
 GHashTable *terminal_encodings_get_builtins(void) {
   GHashTable *encodings_hashtable;
-  guint i;
   TerminalEncoding *encoding;
+  guint i;
 
   encodings_hashtable = g_hash_table_new_full(
       g_str_hash, g_str_equal, NULL, (GDestroyNotify)terminal_encoding_unref);

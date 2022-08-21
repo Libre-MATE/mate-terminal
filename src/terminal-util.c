@@ -70,9 +70,10 @@ void terminal_util_show_error_dialog(GtkWindow *transient_parent,
                                      GtkWidget **weak_ptr, GError *error,
                                      const char *message_format, ...) {
   char *message;
-  va_list args;
 
   if (message_format) {
+    va_list args;
+
     va_start(args, message_format);
     message = g_strdup_vprintf(message_format, args);
     va_end(args);
@@ -456,11 +457,10 @@ static void setup_http_proxy_env(GHashTable *env_table,
     g_string_append(buf, "http://");
 
     if (g_settings_get_boolean(settings_http, "use-authentication")) {
-      char *user, *password;
-      user = gsettings_get_string(settings_http, "authentication-user");
+      char *user = gsettings_get_string(settings_http, "authentication-user");
       if (user) {
         g_string_append_uri_escaped(buf, user, NULL, TRUE);
-        password =
+        char *password =
             gsettings_get_string(settings_http, "authentication-password");
         if (password) {
           g_string_append_c(buf, ':');

@@ -965,7 +965,7 @@ static void update_color_scheme(TerminalScreen *screen) {
   TerminalScreenPrivate *priv = screen->priv;
   TerminalProfile *profile = priv->profile;
   GdkRGBA colors[TERMINAL_PALETTE_SIZE];
-  const GdkRGBA *fg_rgba, *bg_rgba, *bold_rgba;
+  const GdkRGBA *bold_rgba;
   TerminalBackgroundType bg_type;
   const gchar *bg_image_file;
   double bg_alpha = 1.0;
@@ -991,9 +991,9 @@ static void update_color_scheme(TerminalScreen *screen) {
 
   if (!terminal_profile_get_property_boolean(
           profile, TERMINAL_PROFILE_USE_THEME_COLORS)) {
-    fg_rgba = terminal_profile_get_property_boxed(
+    const GdkRGBA *fg_rgba = terminal_profile_get_property_boxed(
         profile, TERMINAL_PROFILE_FOREGROUND_COLOR);
-    bg_rgba = terminal_profile_get_property_boxed(
+    const GdkRGBA *bg_rgba = terminal_profile_get_property_boxed(
         profile, TERMINAL_PROFILE_BACKGROUND_COLOR);
 
     if (!terminal_profile_get_property_boolean(
@@ -1615,14 +1615,13 @@ const char *terminal_screen_get_dynamic_icon_title(TerminalScreen *screen) {
  */
 char *terminal_screen_get_current_dir(TerminalScreen *screen) {
   TerminalScreenPrivate *priv = screen->priv;
-  char *cwd;
   VtePty *pty;
 
   pty = vte_terminal_get_pty(VTE_TERMINAL(screen));
   if (pty != NULL) {
     /* If that didn't work, try falling back to the primary child. See bug
      * #575184. */
-    cwd = cwd_of_pid(priv->child_pid);
+    char *cwd = cwd_of_pid(priv->child_pid);
     if (cwd != NULL) return cwd;
   }
 

@@ -458,7 +458,6 @@ static void palette_color_notify_cb(GtkColorChooser *button, GParamSpec *pspec,
 static void profile_palette_notify_colorpickers_cb(TerminalProfile *profile,
                                                    GParamSpec *pspec,
                                                    GtkWidget *editor) {
-  GtkWidget *w;
   GdkRGBA colors[TERMINAL_PALETTE_SIZE];
   guint n_colors, i;
 
@@ -467,6 +466,7 @@ static void profile_palette_notify_colorpickers_cb(TerminalProfile *profile,
 
   n_colors = MIN(n_colors, TERMINAL_PALETTE_SIZE);
   for (i = 0; i < n_colors; i++) {
+    GtkWidget *w;
     char name[32];
 
     g_snprintf(name, sizeof(name), "palette-colorpicker-%d", i + 1);

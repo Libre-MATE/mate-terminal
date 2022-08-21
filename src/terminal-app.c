@@ -852,9 +852,7 @@ static void terminal_app_encoding_list_notify_cb(GSettings *settings,
   TerminalApp *app = TERMINAL_APP(user_data);
   GVariant *val;
   const gchar **strings;
-  int i;
   TerminalEncoding *encoding;
-  const char *charset;
 
   app->encodings_locked = !g_settings_is_writable(settings, key);
 
@@ -879,14 +877,12 @@ static void terminal_app_encoding_list_notify_cb(GSettings *settings,
     strings = NULL;
 
   if (strings != NULL) {
-    for (i = 0; strings[i] != NULL; ++i) {
-      charset = strings[i];
-      if (!charset) continue;
-
-      encoding = terminal_app_ensure_encoding(app, charset);
+    const gchar **charset = strings;
+    while (*charset) {
+      encoding = terminal_app_ensure_encoding(app, *charset);
       if (!terminal_encoding_is_valid(encoding)) continue;
-
       encoding->is_active = TRUE;
+      charset++;
     }
 
     g_free(strings);

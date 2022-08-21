@@ -251,7 +251,6 @@ static gboolean option_tab_callback(const gchar *option_name,
   TerminalOptions *options = data;
   gboolean is_profile_id;
   InitialWindow *iw;
-  InitialTab *it;
 
   is_profile_id = g_str_has_suffix(option_name, "-with-profile-internal-id");
 
@@ -259,6 +258,8 @@ static gboolean option_tab_callback(const gchar *option_name,
     iw = g_list_last(options->initial_windows)->data;
     iw->tabs = g_list_append(iw->tabs, initial_tab_new(value, is_profile_id));
   } else {
+    InitialTab *it;
+
     iw = add_new_window(options, value, is_profile_id);
     it = g_list_last(iw->tabs)->data;
     it->attach_window = TRUE;
@@ -271,10 +272,9 @@ static gboolean option_role_callback(const gchar *option_name,
                                      const gchar *value, gpointer data,
                                      GError **error) {
   TerminalOptions *options = data;
-  InitialWindow *iw;
 
   if (options->initial_windows) {
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
     iw->role = g_strdup(value);
   } else if (!options->default_role)
     options->default_role = g_strdup(value);
@@ -291,10 +291,9 @@ static gboolean option_show_menubar_callback(const gchar *option_name,
                                              const gchar *value, gpointer data,
                                              GError **error) {
   TerminalOptions *options = data;
-  InitialWindow *iw;
 
   if (options->initial_windows) {
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
     if (iw->force_menubar_state && iw->menubar_state == TRUE) {
       g_printerr(_("\"%s\" option given twice for the same window\n"),
                  "--show-menubar");
@@ -316,10 +315,9 @@ static gboolean option_hide_menubar_callback(const gchar *option_name,
                                              const gchar *value, gpointer data,
                                              GError **error) {
   TerminalOptions *options = data;
-  InitialWindow *iw;
 
   if (options->initial_windows) {
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
 
     if (iw->force_menubar_state && iw->menubar_state == FALSE) {
       g_printerr(_("\"%s\" option given twice for the same window\n"),
@@ -341,10 +339,9 @@ static gboolean option_maximize_callback(const gchar *option_name,
                                          const gchar *value, gpointer data,
                                          GError **error) {
   TerminalOptions *options = data;
-  InitialWindow *iw;
 
   if (options->initial_windows) {
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
     iw->start_maximized = TRUE;
   } else
     options->default_maximize = TRUE;
@@ -358,9 +355,7 @@ static gboolean option_fullscreen_callback(const gchar *option_name,
   TerminalOptions *options = data;
 
   if (options->initial_windows) {
-    InitialWindow *iw;
-
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
     iw->start_fullscreen = TRUE;
   } else
     options->default_fullscreen = TRUE;
@@ -374,9 +369,7 @@ static gboolean option_geometry_callback(const gchar *option_name,
   TerminalOptions *options = data;
 
   if (options->initial_windows) {
-    InitialWindow *iw;
-
-    iw = g_list_last(options->initial_windows)->data;
+    InitialWindow *iw = g_list_last(options->initial_windows)->data;
     iw->geometry = g_strdup(value);
   } else
     options->default_geometry = g_strdup(value);
@@ -511,9 +504,10 @@ static gboolean digest_options_callback(GOptionContext *context,
                                         GOptionGroup *group, gpointer data,
                                         GError **error) {
   TerminalOptions *options = data;
-  InitialTab *it;
 
   if (options->execute) {
+    InitialTab *it;
+
     if (options->exec_argv == NULL) {
       g_set_error(error, G_OPTION_ERROR, G_OPTION_ERROR_BAD_VALUE,
                   _("Option \"%s\" requires specifying the command to run"
