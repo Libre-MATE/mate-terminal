@@ -24,13 +24,17 @@
 #include <config.h>
 #endif
 
+#include <glib/gi18n.h>
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif /* ENABLE_NLS */
+
 #include <errno.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <locale.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -398,11 +402,12 @@ int main(int argc, char **argv) {
   char *working_directory;
   int ret = EXIT_SUCCESS;
 
+#ifdef ENABLE_NLS
   setlocale(LC_ALL, "");
-
   bindtextdomain(GETTEXT_PACKAGE, TERM_LOCALEDIR);
   bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
   textdomain(GETTEXT_PACKAGE);
+#endif /* ENABLE_NLS */
 
   _terminal_debug_init();
 
